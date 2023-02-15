@@ -38,51 +38,7 @@ void matrix::print(){
     }
 }
 
-const std::ostream& operator << (const std::ostream &os, matrix& A){
-    A.print();
-    return os;
-} 
-
-const std::istream& operator >> (const std::istream &is, const matrix& A){
-    double val;
-    for(size_t i = 0; i < A.height; ++i){
-        for(size_t j = 0; j < A.width; ++j){
-            val = A.data[i][j];
-            std::cin >> val;
-        }
-    }
-    return is;
-}
-
-matrix operator * (matrix &A, matrix &B){
-    assert(A.width == B.height);
-
-    matrix C(A.height, B.width); 
-
-    for (size_t ic = 0; ic < C.height; ++ic ){
-        for(size_t jc = 0; jc < C.width; ++jc){
-            for(size_t k = 0; k < A.width; ++k){
-                C.data[ic][jc] = C.data[ic][jc] + A.data[ic][k]*B.data[k][jc];
-            }
-        }
-    }
-    return C;
-}
-
-matrix operator + (matrix &A, matrix &B){
-    assert(A.width == B.width);
-    assert(A.height == B.height);
-
-    matrix C(A.width, A.height);
-    for (size_t i = 0; i < C.height; ++i){
-        for(size_t j = 0; j < C.width; ++j){
-            C.data[i][j] = A.data[i][j] + B.data[i][j];
-        }
-    }
-    return C;
-}
-
-size_t matrix::rang(matrix A){
+size_t matrix::rang(matrix& A){
     matrix R = A;
 
     size_t qua = 1;
@@ -129,7 +85,7 @@ size_t matrix::rang(matrix A){
 
 }
 
-double matrix::det(matrix A){
+double matrix::det(matrix& A){
     assert(A.height == A.width);
 
     matrix R = A;
