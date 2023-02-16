@@ -123,7 +123,6 @@ double matrix::det(matrix& A){
 
             for(size_t j = 0; j < R.width;  ++j){       
                 R.data[i+1][j] = R.data[i+1][j] - R.data[k][j] * (val2 /val1);
-                R.print();
             }
         }
         deter *=  R.data[k][k];

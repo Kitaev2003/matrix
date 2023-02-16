@@ -38,7 +38,7 @@ matrix operator * (matrix& A, matrix& B){
     return C;
 }
 
-template <typename T> 
+template <typename T>
 matrix operator * (T val, matrix& A){
     matrix C(A.width, A.height);
     double x = static_cast<double>(val);

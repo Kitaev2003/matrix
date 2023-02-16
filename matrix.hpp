@@ -23,7 +23,8 @@ class matrix{
     template <typename T>
     friend matrix operator * (T val, matrix& A);
 
-    friend  matrix& fscan(double* det);//for testing
+    template <typename T>
+    friend  matrix fscan(T& det);//for testing
 private:
     size_t width;
     size_t height;
