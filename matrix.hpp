@@ -1,11 +1,11 @@
+#ifndef MATRIX_H
+#define MATRIX_H
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cmath> 
-
 #include <assert.h>
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 const double eps = 0.0001;
 
@@ -36,6 +36,8 @@ public:
 
     void scan();
     void print();
-    double det(matrix& A);
-    size_t rang(matrix& A);
+    double det();
+    size_t rang();
 };
+
+#endif//MATRIX_H

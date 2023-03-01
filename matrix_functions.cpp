@@ -20,9 +20,9 @@ matrix::~matrix(){
 }
 
 void matrix::scan(){
-    for(size_t i = 0; i < height; ++i){
-        for(size_t j = 0; j < width; ++j){
-            std::cin >> data[i][j];
+    for(row i = data.begin(); i < data.end(); ++i){
+        for(col j = i->begin(); j < i->end(); ++j){
+            std::cin >> *j;
         }
     }
 }
@@ -30,16 +30,16 @@ void matrix::scan(){
 void matrix::print(){
     std::cout << "Height:" << height <<"\nWidth:" << width << std::endl;
 
-    for(size_t i = 0; i < height; ++i){
-        for(size_t j = 0; j < width; ++j){
-            std::cout << data[i][j] << " ";
+    for(row i = data.begin(); i < data.end(); ++i){
+        for(col j = i->begin(); j < i->end(); ++j){
+            std::cout << *j << " ";
         }
         std::cout<< std::endl;
     }
 }
 
-size_t matrix::rang(matrix& A){
-    matrix R = A;
+size_t matrix::rang(){
+    matrix R = *this;
 
     size_t qua = 1;
     for(size_t c = 0; c < R.height; ++c){
@@ -85,10 +85,10 @@ size_t matrix::rang(matrix& A){
 
 }
 
-double matrix::det(matrix& A){
-    assert(A.height == A.width);
+double matrix::det(){
+    assert(height == width);
 
-    matrix R = A;
+    matrix R = *this;
     double deter = 1; 
 
     size_t qua = 1;
