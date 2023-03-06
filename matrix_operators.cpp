@@ -1,6 +1,6 @@
 #include "matrix.hpp"
 
-const std::ostream& operator << (const std::ostream& os, const matrix& A){
+const std::ostream& operator << (const std::ostream& os,const matrix& A){
     std::cout << "Height:" << A.height <<"\nWidth:" << A.width << std::endl;
 
     for(size_t i = 0; i < A.width; ++i){
@@ -12,12 +12,13 @@ const std::ostream& operator << (const std::ostream& os, const matrix& A){
     return os;
 } 
 
-const std::istream& operator >> (const std::istream& is, const matrix& A){
+const std::istream& operator >> (const std::istream& is, matrix& A){
     double val;
+
     for(size_t i = 0; i < A.height; ++i){
         for(size_t j = 0; j < A.width; ++j){
-            val = A.data[i][j];
             std::cin >> val;
+            A.data[i][j] = val;
         }
     }
     return is;
@@ -38,14 +39,12 @@ matrix operator * (matrix& A, matrix& B){
     return C;
 }
 
-template <typename T>
-matrix operator * (T val, matrix& A){
+matrix operator * (double val, matrix& A){
     matrix C(A.width, A.height);
-    double x = static_cast<double>(val);
 
     for (size_t i = 0; i < C.height; ++i){
         for(size_t j = 0; j < C.width; ++j){
-            C.data[i][j] = x * A.data[i][j];
+            C.data[i][j] = val * A.data[i][j];
         }
     }
     return C;

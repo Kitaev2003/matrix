@@ -85,6 +85,18 @@ size_t matrix::rang(){
 
 }
 
+double matrix::tr(){
+    assert(height == width);
+    double trace = 0;
+
+    for(row i = data.begin(); i < data.end(); ++i){
+        for(col j = i->begin(); j < i->end(); ++j){
+            trace += *j;
+        }
+    }
+    return trace;
+}
+
 double matrix::det(){
     assert(height == width);
 

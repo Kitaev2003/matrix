@@ -60,6 +60,7 @@ TEST(TestGroupName, Subtest_5){
 TEST(TestGroupName, Subtest_6){
     size_t rg;
     matrix A = fscan(rg);
+    std::cout << rg;
     ASSERT_EQ(A.rang(), rg);
 }
 

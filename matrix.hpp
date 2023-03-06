@@ -7,7 +7,7 @@
 #include <cmath> 
 #include <assert.h>
 
-const double eps = 0.0001;
+#define eps  0.0001
 
 typedef std::vector<double> line;
 typedef std::vector<line> table;
@@ -16,12 +16,11 @@ typedef table::iterator row;
 
 class matrix{
     friend const std::ostream& operator << (const std::ostream& os, const matrix& A);
-    friend const std::istream& operator >> (const std::istream& is, const matrix& A);
+    friend const std::istream& operator >> (const std::istream& is, matrix& A);
     friend matrix operator * (matrix& A, matrix& B);
     friend matrix operator + (matrix& A, matrix& B);
     friend matrix operator - (matrix& A, matrix& B);
-    template <typename T>
-    friend matrix operator * (T val, matrix& A);
+    friend matrix operator * (double val, matrix& A);
 
     template <typename T>
     friend  matrix fscan(T& det);//for testing
@@ -37,6 +36,7 @@ public:
     void scan();
     void print();
     double det();
+    double tr();
     size_t rang();
 };
 
