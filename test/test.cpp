@@ -12,16 +12,22 @@ int main(int argc, char **argv){
 }
 
 template <typename T>
-matrix fscan(T& det){
-    size_t n, m;
+void matrix::filescan(T& det){
     filetest >> n >> m;
     
-    matrix A(n, m);
-    for(row i = A.data.begin(); i < A.data.end(); ++i){
-        for(col j = i->begin(); j < i->end(); ++j){
-            filetest >> *j;
-        }
-    }
+    matrix *this(n, m);
+    filetest >> *this;
+    filetest >> det;
+ 
+    return A;
+}
+
+template <typename T>
+void matrix_square::filescan(T& det){
+    filetest >> n >> m;
+    
+    matrix_square *this(n, m);
+    filetest >> *this;
     filetest >> det;
  
     return A;
@@ -29,61 +35,61 @@ matrix fscan(T& det){
 
 TEST(TestGroupName, Subtest_1){
     double det;
-    matrix A = fscan(det);
+    matrix_square A.filescan(det);
     ASSERT_DOUBLE_EQ(A.det(), det);
 }
 
 TEST(TestGroupName, Subtest_2){
     double det;
-    matrix A = fscan(det);
+    matrix_square A = filescan(det);
     ASSERT_DOUBLE_EQ(A.det(), det);
 }
 
 TEST(TestGroupName, Subtest_3){
     double det;
-    matrix A = fscan(det);
+    matrix_square A = filescan(det);
     ASSERT_DOUBLE_EQ(A.det(), det);
 }
 
 TEST(TestGroupName, Subtest_4){
     double det;
-    matrix A = fscan(det);
+    matrix_square A = filescan(det);
     ASSERT_DOUBLE_EQ(A.det(), det);
 }
 
 TEST(TestGroupName, Subtest_5){
     double det;
-    matrix A = fscan(det);
+    matrix_square A = filescan(det);
     ASSERT_DOUBLE_EQ(A.det(), det);
 }
 
 TEST(TestGroupName, Subtest_6){
     size_t rg;
-    matrix A = fscan(rg);
+    matrix A = filescan(rg);
     std::cout << rg;
     ASSERT_EQ(A.rang(), rg);
 }
 
 TEST(TestGroupName, Subtest_7){
     size_t rg;
-    matrix A = fscan(rg);
+    matrix A.filescan(rg);
     ASSERT_EQ(A.rang(), rg);
 }
 
 TEST(TestGroupName, Subtest_8){
     size_t rg;
-    matrix A = fscan(rg);
+    matrix A.filescan(rg);
     ASSERT_EQ(A.rang(), rg);
 }
 
 TEST(TestGroupName, Subtest_9){
     size_t rg;
-    matrix A = fscan(rg);
+    matrix A.filescan(rg);
     ASSERT_EQ(A.rang(), rg);
 }
 
 TEST(TestGroupName, Subtest_10){
     size_t rg;
-    matrix A = fscan(rg);
+    matrix A->filescan(rg);
     ASSERT_EQ(A.rang(), rg);
 }

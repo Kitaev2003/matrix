@@ -17,27 +17,42 @@ typedef table::iterator row;
 class matrix{
     friend const std::ostream& operator << (const std::ostream& os, const matrix& A);
     friend const std::istream& operator >> (const std::istream& is, matrix& A);
-    friend matrix operator * (matrix& A, matrix& B);
-    friend matrix operator + (matrix& A, matrix& B);
-    friend matrix operator - (matrix& A, matrix& B);
-    friend matrix operator * (double val, matrix& A);
 
-    template <typename T>
-    friend  matrix fscan(T& det);//for testing
-private:
-    size_t width;
-    size_t height;
+protected:
+    unsigned int width;
+    unsigned int height;
 
     table data; 
 public:
-    matrix(const size_t n, const size_t m);
-    ~matrix();
+    virtual matrix operator * ( matrix& B);
+    matrix operator * (double val);
+    matrix& operator += (matrix& B);
+    matrix& operator -= (matrix& B);
+
+    matrix() = default;
+    matrix(const unsigned int n, const unsigned int m);
+    virtual ~matrix();
 
     void scan();
     void print();
+    unsigned int rang();
+};
+matrix operator -  (matrix& A, matrix& B);
+matrix operator +  (matrix& A, matrix& B);
+
+
+class matrix_square : public matrix{
+private:
+    unsigned int size;
+public:
+    matrix_square(const unsigned int in_size);
+    ~matrix_square();
+
+    matrix_square& operator *= (matrix_square &B);
+
     double det();
     double tr();
-    size_t rang();
 };
+matrix_square operator* (matrix_square& A, matrix_square &B);
 
-#endif//MATRIX_H
+#endif //MATRIX_H
