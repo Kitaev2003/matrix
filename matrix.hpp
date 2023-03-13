@@ -15,8 +15,8 @@ typedef line::iterator col;
 typedef table::iterator row;
 
 class matrix{
-    friend const std::ostream& operator << (const std::ostream& os, const matrix& A);
-    friend const std::istream& operator >> (const std::istream& is, matrix& A);
+    friend std::ostream& operator << (std::ostream& os, const matrix& A);
+    friend std::istream& operator >> (std::istream& is, matrix& A);
 
 protected:
     unsigned int width;
@@ -24,14 +24,14 @@ protected:
 
     table data; 
 public:
+    matrix() = default;
+    matrix(const unsigned int n, const unsigned int m);
+    virtual ~matrix();
+
     virtual matrix operator * ( matrix& B);
     matrix operator * (double val);
     matrix& operator += (matrix& B);
     matrix& operator -= (matrix& B);
-
-    matrix() = default;
-    matrix(const unsigned int n, const unsigned int m);
-    virtual ~matrix();
 
     void scan();
     void print();
@@ -40,11 +40,11 @@ public:
 matrix operator -  (matrix& A, matrix& B);
 matrix operator +  (matrix& A, matrix& B);
 
-
 class matrix_square : public matrix{
 private:
     unsigned int size;
 public:
+    matrix_square() = default;
     matrix_square(const unsigned int in_size);
     ~matrix_square();
 

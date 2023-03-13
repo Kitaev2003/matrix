@@ -1,23 +1,22 @@
 #include "../matrix.hpp"
 
-const std::ostream& operator << (const std::ostream& os, const matrix& A){//friend
-    std::cout << "Height:" << A.height <<"\nWidth:" << A.width << std::endl;
+std::ostream& operator << (std::ostream& os, const matrix& A){//friend
+    os << "Height:" << A.height <<"\nWidth:" << A.width << std::endl;
 
     for(size_t i = 0; i < A.width; ++i){
         for(size_t j = 0; j < A.width; ++j){
-            std::cout << A.data[i][j] << " ";
+            os << A.data[i][j] << " ";
         }
-        std::cout<< std::endl;
+        os << std::endl;
     }
     return os;
 } 
 
-const std::istream& operator >> (const std::istream& is, matrix& A){//friend
+std::istream& operator >> ( std::istream& is, matrix& A){//friend
     double val;
-
     for(size_t i = 0; i < A.height; ++i){
         for(size_t j = 0; j < A.width; ++j){
-            std::cin >> val;
+            is >> val;
             A.data[i][j] = val;
         }
     }

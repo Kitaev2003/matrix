@@ -6,6 +6,6 @@ I work with help MakeFile, so you can use ready-made commands.
 ##### Start main.cpp #####
 ```make```
 ##### Start UnitTest #####
-``` make test ```
+``` make testing ```
 ##### Running an executable file #####
 ```make begin```

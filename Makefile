@@ -15,7 +15,7 @@ FILE_NAME = start
 
 all:
 	$(CC) $(CFLAGS) $(FILES) main.cpp -o $(FILE_NAME)
-test:
+testing:
 	$(CC) $(CFLAGS) $(FILES) test/test.cpp -o $(FILE_NAME) $(GTEST)
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(FILE_NAME)
