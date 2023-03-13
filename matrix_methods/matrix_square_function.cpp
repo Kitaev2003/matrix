@@ -12,6 +12,18 @@ matrix_square::matrix_square (const unsigned int in_size){
     }
 }
 
+matrix_square::matrix_square (const unsigned int n, const unsigned int m){
+    assert(n == m);
+    height = n;
+    width = m;
+    size = n;
+
+    data.resize(size);
+    for(row iter = data.begin(); iter < data.end(); ++iter){
+        iter->resize(size);
+    }
+}
+
 matrix_square::~matrix_square(){
     for(row iter = data.begin(); iter < data.end(); ++iter){
         iter->resize(0);
@@ -31,7 +43,6 @@ double matrix_square::tr(){
 }
 
 double matrix_square::det(){
-
     matrix_square R = *this;
     double deter = 1; 
 

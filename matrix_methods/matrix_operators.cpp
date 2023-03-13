@@ -12,7 +12,7 @@ std::ostream& operator << (std::ostream& os, const matrix& A){//friend
     return os;
 } 
 
-std::istream& operator >> ( std::istream& is, matrix& A){//friend
+std::istream& operator >> (std::istream& is, matrix& A){//friend
     double val;
     for(size_t i = 0; i < A.height; ++i){
         for(size_t j = 0; j < A.width; ++j){

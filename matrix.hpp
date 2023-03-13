@@ -46,6 +46,7 @@ private:
 public:
     matrix_square() = default;
     matrix_square(const unsigned int in_size);
+    matrix_square::matrix_square (const unsigned int n, const unsigned int m);
     ~matrix_square();
 
     matrix_square& operator *= (matrix_square &B);
