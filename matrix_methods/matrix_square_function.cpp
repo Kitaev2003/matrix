@@ -1,14 +1,11 @@
 #include "../matrix.hpp"
 
-matrix_square::matrix_square (const unsigned int in_size){
-    height = in_size;
-    width = in_size;
-
-    size = in_size;
-
-    data.resize(in_size);
+matrix_square::matrix_square (unsigned int in_size) : size(in_size){
+    height = size;
+    width = size;
+    data.resize(size);
     for(row iter = data.begin(); iter < data.end(); ++iter){
-        iter->resize(in_size);
+        iter->resize(size);
     }
 }
 

@@ -17,9 +17,11 @@ all:
 	$(CC) $(CFLAGS) $(FILES) main.cpp -o $(FILE_NAME)
 testing:
 	$(CC) $(CFLAGS) $(FILES) test/test.cpp -o $(FILE_NAME) $(GTEST)
-valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./$(FILE_NAME)
-begin:
-	./$(FILE_NAME)
+memcheck: 
+	valgrind --tool=memcheck --leak-check=full --leak-resolution=med --log-file=memory_info.txt ./$(FILE_NAME)
+massif:
+	valgrind --tool=massif --log-file=memory_info.txt ./$(FILE_NAME)
 debug:
 	gdb $(FILE_NAME)
+begin:
+	./$(FILE_NAME)

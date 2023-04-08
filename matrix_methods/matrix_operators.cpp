@@ -1,5 +1,14 @@
 #include "../matrix.hpp"
 
+matrix& matrix::operator= (matrix& rhs){
+    width = rhs.width;
+    height = rhs.height;
+
+    data = rhs.data;
+
+    return *this;
+}
+
 std::ostream& operator << (std::ostream& os, const matrix& A){//friend
     os << "Height:" << A.height <<"\nWidth:" << A.width << std::endl;
 

@@ -1,14 +1,18 @@
 #include "../matrix.hpp"
 
-matrix::matrix(const unsigned int m, const unsigned int n){
-    height = m;//i
-    width = n;//j
-
-    data.resize(m);
+matrix::matrix(const unsigned int n, const unsigned int m) : width(m), height(n){
+    data.resize(height);
 
     for(row iter = data.begin(); iter < data.end(); ++iter){
-        iter->resize(n);
+        iter->resize(width);
     }
+}
+
+matrix::matrix(matrix& rhs){
+    height = rhs.height;
+    width = rhs.width;
+
+    data = rhs.data;
 }
 
 matrix::~matrix(){
@@ -81,4 +85,17 @@ unsigned int matrix::rang(){
         }
     }
     return rg;
+}
+
+void matrix::trans(){
+    matrix A(width, height);
+    for(size_t i = 0; i < height; ++i){
+        for(size_t j = 0; j < width; ++j){
+            if(i != j){
+                A.data[j][i] = data[i][j];
+                A.data[i][j] = data[j][i];
+            }
+        }
+    }
+    *this = A;
 }

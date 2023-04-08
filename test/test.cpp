@@ -2,7 +2,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-std::fstream filetest {"./test/Testing.txt"};
+namespace {
+    std::fstream filetest {"./test/Testing.txt"};
+}
 
 template <typename T>
 matrix filescan(T& det);

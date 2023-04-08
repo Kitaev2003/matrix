@@ -4,15 +4,16 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <cmath> 
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 
-#define eps  0.0001
+#define eps  0.000001
 
-typedef std::vector<double> line;
-typedef std::vector<line> table;
-typedef line::iterator col;
-typedef table::iterator row;
+typedef std::vector<double> line;       //container
+typedef std::vector<line>  table;       //container
+
+typedef line::iterator  col;            //iterator
+typedef table::iterator row;            //iterator
 
 class matrix{
     friend std::ostream& operator << (std::ostream& os, const matrix& A);
@@ -26,15 +27,18 @@ protected:
 public:
     matrix() = default;
     matrix(const unsigned int n, const unsigned int m);
+    matrix(matrix& rhs);
     virtual ~matrix();
 
-    virtual matrix operator * ( matrix& B);
-    matrix operator * (double val);
+    matrix& operator= (matrix& rhs);
+    matrix operator * (matrix& B);
+    matrix operator  * (double val);
     matrix& operator += (matrix& B);
     matrix& operator -= (matrix& B);
 
     void scan();
     void print();
+    void trans();
     unsigned int rang();
 };
 matrix operator -  (matrix& A, matrix& B);
@@ -46,8 +50,8 @@ private:
 public:
     matrix_square() = default;
     matrix_square(const unsigned int in_size);
-    matrix_square::matrix_square (const unsigned int n, const unsigned int m);
-    ~matrix_square();
+    matrix_square(const unsigned int n, const unsigned int m);
+    ~matrix_square() override;
 
     matrix_square& operator *= (matrix_square &B);
 
