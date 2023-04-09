@@ -35,7 +35,7 @@ RowIterator matrix::end(){
 
 void matrix::scan(){
     for(row i = data.begin(); i < data.end(); ++i){
-        for(Col_Iterator j = i->begin(); j < i->end(); ++j){
+        for(ColIterator j = i->begin(); j < i->end(); ++j){
             std::cin >> *j;
         }
     }
@@ -45,7 +45,7 @@ void matrix::print(){
     std::cout << "Height:" << height <<"\nWidth:" << width << std::endl;
 
     for(row i = data.begin(); i < data.end(); ++i){
-        for(Col_Iterator j = i->begin(); j < i->end(); ++j){
+        for(ColIterator j = i->begin(); j < i->end(); ++j){
             std::cout << *j << " ";
         }
         std::cout<< std::endl;

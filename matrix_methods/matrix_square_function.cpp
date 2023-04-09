@@ -32,7 +32,7 @@ double matrix_square::tr(){
     double trace = 0;
 
     for(row i = data.begin(); i < data.end(); ++i){
-        for(Col_Iterator j = i->begin(); j < i->end(); ++j){
+        for(ColIterator j = i->begin(); j < i->end(); ++j){
             trace += *j;
         }
     }

@@ -12,10 +12,11 @@
     typedef std::vector<double> line;       //container
     typedef std::vector<line>  table;       //container
 
-    typedef line::iterator  Col_Iterator;   //iterator
+    typedef line::iterator  ColIterator;   //iterator
     typedef table::iterator row;            //iterator
 
-class RowIterator: public std::iterator<std::input_iterator_tag, Col_Iterator>{
+//RowIterator
+class RowIterator: public std::iterator<std::input_iterator_tag, ColIterator>{
     friend class matrix;
 private:
     row p;
@@ -27,11 +28,11 @@ public:
     bool operator!=(RowIterator const& rhs) const;
     RowIterator& operator++();
 
-    Col_Iterator begin();
-    Col_Iterator end();
+    ColIterator begin();
+    ColIterator end();
 };
 
-
+//Matrix class
 class matrix{
     friend std::ostream& operator << (std::ostream& os, const matrix& A);
     friend std::istream& operator >> (std::istream& is, matrix& A);
@@ -64,6 +65,7 @@ public:
 matrix operator -  (matrix& A, matrix& B);
 matrix operator +  (matrix& A, matrix& B);
 
+//Matrx_square class
 class matrix_square : public matrix{
 private:
     unsigned int size;
