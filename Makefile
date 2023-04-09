@@ -2,7 +2,7 @@
 CC = g++
 
 #Files, wich use 
-FILES = matrix_methods/matrix_functions.cpp matrix_methods/matrix_square_function.cpp matrix_methods/matrix_operators.cpp
+FILES = matrix_methods/matrix_functions.cpp matrix_methods/matrix_square_function.cpp matrix_methods/matrix_operators.cpp matrix_methods/matrix_iterators.cpp
 
 #Flags#
 CFLAGS = -g -Wall -Warray-bounds -Wdouble-promotion -Wold-style-cast -Wfloat-equal -Wextra -Wpedantic

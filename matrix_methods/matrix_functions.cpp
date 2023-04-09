@@ -23,6 +23,16 @@ matrix::~matrix(){
     data.resize(0); 
 }
 
+RowIterator matrix::begin(){
+    RowIterator A(data.begin());
+    return A;
+}
+
+RowIterator matrix::end(){
+    RowIterator A(data.end());
+    return A;
+}
+
 void matrix::scan(){
     for(row i = data.begin(); i < data.end(); ++i){
         for(col j = i->begin(); j < i->end(); ++j){

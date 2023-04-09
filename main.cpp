@@ -1,10 +1,12 @@
 #include "matrix.hpp"
 
 int main(int argc, char* argv[]){
-    matrix_square A(3);
-    matrix_square B(3);
-    std::cin >> A >> B;
-    std::cout << (A *= B);
-    return 0;
+    matrix A(3, 3);
+    std::cin >> A;
+    for(RowIterator p = A.begin(); p != A.end(); ++p){
+        for(col k = p.begin(); k != p.end(); ++k){
+            std::cout << *k << std::endl;
+        }
+    }
 }
 

@@ -9,21 +9,37 @@
 
 #define eps  0.000001
 
-typedef std::vector<double> line;       //container
-typedef std::vector<line>  table;       //container
+    typedef std::vector<double> line;       //container
+    typedef std::vector<line>  table;       //container
 
-typedef line::iterator  col;            //iterator
-typedef table::iterator row;            //iterator
+    typedef line::iterator  col;            //iterator
+    typedef table::iterator row;            //iterator
+
+class RowIterator: public std::iterator<std::input_iterator_tag, col>{
+    friend class matrix;
+private:
+    row p;
+    RowIterator(row p_);
+public:
+    RowIterator(const RowIterator &it);
+    RowIterator& operator=(RowIterator const& rhs);
+    
+    bool operator!=(RowIterator const& rhs) const;
+    RowIterator& operator++();
+
+    col begin();
+    col end();
+};
+
 
 class matrix{
     friend std::ostream& operator << (std::ostream& os, const matrix& A);
     friend std::istream& operator >> (std::istream& is, matrix& A);
-
 protected:
     unsigned int width;
     unsigned int height;
 
-    table data; 
+    table data;
 public:
     matrix() = default;
     matrix(const unsigned int n, const unsigned int m);
@@ -36,10 +52,14 @@ public:
     matrix& operator += (matrix& B);
     matrix& operator -= (matrix& B);
 
+    RowIterator begin();
+    RowIterator end();
+
     void scan();
     void print();
     void trans();
     unsigned int rang();
+
 };
 matrix operator -  (matrix& A, matrix& B);
 matrix operator +  (matrix& A, matrix& B);
@@ -59,5 +79,4 @@ public:
     double tr();
 };
 matrix_square operator* (matrix_square& A, matrix_square &B);
-
 #endif //MATRIX_H
