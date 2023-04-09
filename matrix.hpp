@@ -16,7 +16,7 @@
     typedef table::iterator row;            //iterator
 
 //RowIterator
-class RowIterator: public std::iterator<std::input_iterator_tag, ColIterator>{
+class RowIterator{
     friend class matrix;
 private:
     row p;
