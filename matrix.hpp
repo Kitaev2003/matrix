@@ -12,10 +12,10 @@
     typedef std::vector<double> line;       //container
     typedef std::vector<line>  table;       //container
 
-    typedef line::iterator  col;            //iterator
+    typedef line::iterator  Col_Iterator;   //iterator
     typedef table::iterator row;            //iterator
 
-class RowIterator: public std::iterator<std::input_iterator_tag, col>{
+class RowIterator: public std::iterator<std::input_iterator_tag, Col_Iterator>{
     friend class matrix;
 private:
     row p;
@@ -23,12 +23,12 @@ private:
 public:
     RowIterator(const RowIterator &it);
     RowIterator& operator=(RowIterator const& rhs);
-    
+
     bool operator!=(RowIterator const& rhs) const;
     RowIterator& operator++();
 
-    col begin();
-    col end();
+    Col_Iterator begin();
+    Col_Iterator end();
 };
 
 
@@ -38,7 +38,7 @@ class matrix{
 protected:
     unsigned int width;
     unsigned int height;
-
+    
     table data;
 public:
     matrix() = default;

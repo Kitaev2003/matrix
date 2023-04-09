@@ -17,11 +17,10 @@ RowIterator& RowIterator::operator++(){
     return *this;
 }
 
-col RowIterator::begin(){
+Col_Iterator RowIterator::begin(){
     return (*p).begin();
 }
 
-col RowIterator::end(){
+Col_Iterator RowIterator::end(){
     return (*p).end();
 }
-
