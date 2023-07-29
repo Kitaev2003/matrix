@@ -1,9 +1,6 @@
 #Compiler#
 CC = g++
 
-#Files, wich use 
-FILES = matrix_methods/matrix_functions.cpp matrix_methods/matrix_square_function.cpp matrix_methods/matrix_operators.cpp matrix_methods/matrix_iterators.cpp
-
 #Flags#
 CFLAGS = -g -Wall -Warray-bounds -Wdouble-promotion -Wold-style-cast -Wfloat-equal -Wextra -Wpedantic
 
@@ -14,9 +11,9 @@ GTEST = -lgtest -lgmock -pthread
 FILE_NAME = start
 
 all:
-	$(CC) $(CFLAGS) $(FILES) main.cpp -o $(FILE_NAME)
+	$(CC) $(CFLAGS)  main.cpp -o $(FILE_NAME)
 testing:
-	$(CC) $(CFLAGS) $(FILES) test/test.cpp -o $(FILE_NAME) $(GTEST)
+	$(CC) $(CFLAGS)  test/test.cpp -o $(FILE_NAME) $(GTEST)
 memcheck: 
 	valgrind --tool=memcheck --leak-check=full --leak-resolution=med --log-file=memory_info.txt ./$(FILE_NAME)
 massif:
