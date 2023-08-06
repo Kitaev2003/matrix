@@ -1,45 +1,44 @@
 #ifndef MATRIX_OPERATORS_H
 #define MATRIX_OPERATORS_H
+#include "matrix.h"
 
 template <class Type> 
-matrix<Type> &matrix<Type>::operator=(matrix<Type> &rhs) {
+matrix<Type> &matrix<Type>::operator=(matrix<Type> const &rhs) {
   width = rhs.width;
   height = rhs.height;
-
   data = rhs.data;
 
   return *this;
 }
 
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const matrix<T> &A) { // friend
+template <class Type>
+std::ostream &operator<<(std::ostream &os, const matrix<Type> &A) { // friend
   os << "Height:" << A.height << "\nWidth:" << A.width << std::endl;
 
-  for (size_t i = 0; i < A.width; ++i) {
-    for (size_t j = 0; j < A.width; ++j) {
-      os << A.data[i][j] << " ";
-    }
+  for (Row itRow = begin(); itRow != end(); ++itRow) {
+    for (Col itCol = itRow.begin(); itCol != itRow.end(); ++itCol)
+      os << *itCol << " ";
     os << std::endl;
   }
   return os;
 }
 
-template <typename T>
-std::istream &operator>>(std::istream &is, matrix<T> &A) { // friend
-  Type val;
-  for (size_t i = 0; i < A.height; ++i) {
-    for (size_t j = 0; j < A.width; ++j) {
-      is >> val;
-      A.data[i][j] = val;
+
+template <class Type>
+std::istream &operator>>(std::istream &is, matrix<Type> &A) { // friend
+  Type Val;
+  for (Row itRow = begin(); itRow != end(); ++itRow) {
+    for (Col itCol = itRow.begin(); itCol != itRow.end(); ++itCol){
+      is >> Val;
+      *itCol = Val;
     }
   }
   return is;
 }
-
+/*
 template <class Type>
-matrix<Type> matrix<Type>::operator*(matrix<Type> &B) { // friend
+matrix<Type> matrix<Type>::operator*(matrix<Type> const &B) {
   assert(this->width == B.height);
-
   matrix C(this->height, B.width);
 
   for (size_t ic = 0; ic < C.height; ++ic) {
@@ -53,9 +52,8 @@ matrix<Type> matrix<Type>::operator*(matrix<Type> &B) { // friend
 }
 
 template <class Type> 
-matrix<Type> matrix<Type>::operator*(Type val) { // friend
+matrix<Type> matrix<Type>::operator*(const Type val) { // friend
   matrix C = *this;
-template <class Type>
   for (size_t i = 0; i < this->height; ++i) {
     for (size_t j = 0; j < this->width; ++j) {
       C.data[i][j] *= val;
@@ -65,7 +63,7 @@ template <class Type>
 }
 
 template <class Type> 
-matrix<Type> &matrix<Type>::operator+=(matrix<Type> &B) {
+matrix<Type> &matrix<Type>::operator+=(matrix<Type> const &B) {
   assert(this->width == B.width);
   assert(this->height == B.height);
 
@@ -78,7 +76,7 @@ matrix<Type> &matrix<Type>::operator+=(matrix<Type> &B) {
 }
 
 template <class Type> 
-matrix<Type> &matrix<Type>::operator-=(matrix<Type> &B) {
+matrix<Type> &matrix<Type>::operator-=(matrix<Type> const &B) {
   assert(this->width == B.width);
   assert(this->height == B.height);
 
@@ -127,4 +125,5 @@ matrix_square<Type> operator*(matrix_square<Type> &A, matrix_square<Type> &B) {
   C *= B;
   return C;
 }
+*/
 #endif //MATRIX_OPERATORS_H

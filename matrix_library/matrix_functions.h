@@ -1,36 +1,32 @@
 #ifndef MATRIX_FUNCTIONS_H
 #define MATRIX_FUNCTIONS_H
+#include "matrix.h"
 
 template <class Type>
 matrix<Type>::matrix(const unsigned int n, const unsigned int m)
     : width(m), height(n) {
   data.resize(height);
-
-  for (RowIterator iter = data.begin(); iter < data.end(); ++iter) {
-    iter->resize(width);
-  }
+  for(auto &col : data)
+    col.resize(width);
 }
-template <class Type> matrix<Type>::matrix(matrix &rhs) {
+
+template <class Type> 
+matrix<Type>::matrix(matrix &rhs) {
   height = rhs.height;
   width = rhs.width;
-
   data = rhs.data;
 }
 
 template <class Type> 
-matrix<Type>::~matrix() {
-  for (RowIterator iter = data.begin(); iter < data.end(); ++iter) {
-    iter->resize(0);
-  }
-
-  data.resize(0);
-}
+matrix<Type>::~matrix() {}
 
 template <class Type>
 void matrix<Type>::scan() {
-  for (RowIterator i = data.begin(); i < data.end(); ++i) {
-    for (ColIterator j = i->begin(); j < i->end(); ++j) {
-      std::cin >> *j;
+  Type Var;
+  for (Row itRow = begin(); itRow != end(); ++itRow) {
+    for (Col itCol = itRow.begin(); itCol != itRow.end(); ++itCol) {
+      std::cin >> Var; 
+      *itCol = Var;
     }
   }
 }
@@ -39,14 +35,14 @@ template <class Type>
 void matrix<Type>::print() {
   std::cout << "Height:" << height << "\nWidth:" << width << std::endl;
 
-  for (RowIterator i = data.begin(); i < data.end(); ++i) {
-    for (ColIterator j = i->begin(); j < i->end(); ++j) {
-      std::cout << *j << " ";
-    }
+  for (Row itRow = begin(); itRow != end(); ++itRow) {
+    for (Col itCol = itRow.begin(); itCol != itRow.end(); ++itCol)
+      std::cout << *itCol << " "; 
     std::cout << std::endl;
   }
 }
 
+/*
 template <class Type> 
 unsigned int matrix<Type>::rang() {
   matrix R = *this;
@@ -102,5 +98,5 @@ void matrix<Type>::trans() {
     }
   }
   *this = A;
-}
+}*/
 #endif//MATRIX_FUNCTIONS_H 
