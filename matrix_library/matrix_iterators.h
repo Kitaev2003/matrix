@@ -2,13 +2,13 @@
 #define MATRIX_ITERATORS_H
 #include "matrix.h"
 
-template <class Type>
+template <class Type> 
 typename matrix<Type>::RowIterator matrix<Type>::begin() {
   RowIterator Iterator(data.begin());
   return Iterator;
 }
 
-template <class Type>
+template <class Type> 
 typename matrix<Type>::RowIterator matrix<Type>::end() {
   RowIterator Iterator(data.end());
   return Iterator;

@@ -1,5 +1,8 @@
 #Compiler#
-CC = g++
+CC = clang++
+
+#Define#
+DEFINE = -DTESTING
 
 #Flags#
 CFLAGS = -g -Wall -Warray-bounds -Wdouble-promotion -Wold-style-cast -Wfloat-equal -Wextra -Wpedantic
@@ -13,7 +16,7 @@ FILE_NAME = start
 all:
 	$(CC) $(CFLAGS)  main.cpp -o $(FILE_NAME)
 testing:
-	$(CC) $(CFLAGS)  test/test.cpp -o $(FILE_NAME) $(GTEST)
+	$(CC) $(CFLAGS) $(DEFINE) test/test.cpp -o $(FILE_NAME) $(GTEST)
 memcheck: 
 	valgrind --tool=memcheck --leak-check=full --leak-resolution=med --log-file=memory_info.txt ./$(FILE_NAME)
 massif:

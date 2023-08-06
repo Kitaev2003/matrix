@@ -12,66 +12,67 @@
 // Matrix class
 template <class Type>
 class matrix {
-  template <typename T>
-  friend std::ostream &operator<<(std::ostream &os, const matrix<T> &A);
-  template <typename T>
-  friend std::istream &operator>>(std::istream &is, matrix<T> &A);
-
-protected:
-  unsigned int width;
-  unsigned int height;
-  std::vector<std::vector<Type>> data;
-
 public:
   class RowIterator;
   RowIterator begin();
   RowIterator end();
 
 protected:
+  unsigned int width;
+  unsigned int height;
+  std::vector<std::vector<Type>> data;
+
   typedef RowIterator Row;
   typedef typename RowIterator::ColIterator Col;
-  
 public:
   matrix(const unsigned int n, const unsigned int m);
-  matrix(matrix<Type> &rhs);
+  matrix(const matrix<Type> &rhs);
   matrix() = default;
   virtual ~matrix();
 
-  matrix<Type> &operator=(matrix<Type> const &rhs);
-  matrix<Type> &operator+=(matrix<Type> const &B);
-  matrix<Type> &operator-=(matrix<Type> const &B);
-  matrix<Type> operator*(matrix<Type> const &B);
-  matrix<Type> operator*(const Type val);
+  const std::vector<Type> &operator[](const std::size_t num) const;
+  matrix<Type> &operator=(const matrix<Type> &rhs);
+  matrix<Type> &operator+=(const matrix<Type> &rhs);
+  matrix<Type> &operator-=(const matrix<Type> &rhs);
+  matrix<Type> operator*(const matrix<Type> &rhs) const;
+  matrix<Type> operator*(const Type val) const;
+  bool operator==(const matrix<Type> &rhs) const;
+  bool operator!=(const matrix<Type> &rhs) const;
 
-  void scan();
-  void print();
+  std::istream &scan(std::istream &is);
+  std::ostream &print(std::ostream &os);
   void trans();
   unsigned int rang();
 };
-template <class Type> 
-matrix<Type> operator+(matrix<Type> &A, matrix<Type> &B);
-template <class Type> 
-matrix<Type> operator-(matrix<Type> &A, matrix<Type> &B);
+
+template <class Type>
+std::ostream &operator<<(std::ostream &os, matrix<Type> &A);
+template <class Type>
+std::istream &operator>>(std::istream &is, matrix<Type> &A);
+template <class Type>
+matrix<Type> operator+(const matrix<Type> &lhs, const matrix<Type> &rhs);
+template <class Type>
+matrix<Type> operator-(const matrix<Type> &lhs, const matrix<Type> &rhs);
 
 // Matrx_square class
 template <class Type> 
 class matrix_square : public matrix<Type> {
-private:
+protected:
   unsigned int size;
-
 public:
   matrix_square() = default;
   matrix_square(const unsigned int in_size);
   matrix_square(const unsigned int n, const unsigned int m);
   ~matrix_square() override;
 
-  matrix_square &operator*=(matrix_square &B);
+  matrix_square<Type> &operator*=(const matrix_square<Type> &rhs);
 
   Type det();
   Type tr();
 };
 template <class Type>
-matrix_square<Type> operator*(matrix_square<Type> &A, matrix_square<Type> &B);
+matrix_square<Type> operator*(const matrix_square<Type> &lhs,
+                              const matrix_square<Type> &rhs);
 
 template <class Type>
 class matrix<Type>::RowIterator
@@ -118,4 +119,10 @@ public:
   bool operator==(ColIterator const &rhs) const;
   ColIterator &operator++();
 };
+
+#ifdef TESTING
+template <class Type> matrix<Type> filescan(Type& det);
+template <class Type> matrix_square<Type> filescan_S(Type& det);
+#endif
+
 #endif // MATRIX_H
