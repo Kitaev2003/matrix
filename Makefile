@@ -2,7 +2,7 @@
 CC = clang++
 
 #Define#
-DEFINE = -DTESTING
+DEFINE = -D__TESTING__
 
 #Flags#
 CFLAGS = -g -Wall -Warray-bounds -Wdouble-promotion -Wold-style-cast -Wfloat-equal -Wextra -Wpedantic
@@ -25,3 +25,5 @@ debug:
 	gdb $(FILE_NAME)
 begin:
 	./$(FILE_NAME)
+clean: 
+	rm -r $(FILE_NAME)

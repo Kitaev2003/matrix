@@ -2,113 +2,111 @@
 #define MATRIX_ITERATORS_H
 #include "matrix.h"
 
-template <class Type> 
-typename matrix<Type>::RowIterator matrix<Type>::begin() {
-  RowIterator Iterator(data.begin());
-  return Iterator;
+template <class Type> typename matrix<Type>::Riterator matrix<Type>::begin() {
+  return Riterator(data, width);
 }
 
-template <class Type> 
-typename matrix<Type>::RowIterator matrix<Type>::end() {
-  RowIterator Iterator(data.end());
-  return Iterator;
+template <class Type> typename matrix<Type>::Riterator matrix<Type>::end() {
+  return Riterator(data + height, width);
 }
 
 template <class Type>
-matrix<Type>::RowIterator::RowIterator(const matrix<Type>::RowIterator &rhs) {
-  iter = rhs.iter;
+typename matrix<Type>::const_Riterator matrix<Type>::begin() const {
+  return const_Riterator(data, width);
 }
 
 template <class Type>
-typename matrix<Type>::RowIterator &
-matrix<Type>::RowIterator::operator=(const matrix<Type>::RowIterator &rhs) {
-  iter = rhs.iter;
+typename matrix<Type>::const_Riterator matrix<Type>::end() const {
+  return const_Riterator(data + height, width);
+}
+
+template <class Type>
+RowIterator<Type>::RowIterator(const RowIterator<Type> &rhs) {
+  Point = rhs.Point;
+  width = rhs.width;
+}
+
+template <class Type>
+RowIterator<Type> &RowIterator<Type>::operator=(const RowIterator<Type> &rhs) {
+  width = rhs.width;
+  Point = rhs.Point;
   return *this;
 }
 
 template <class Type>
-matrix<Type>::RowIterator::RowIterator(
-    const typename std::vector<std::vector<Type>>::iterator &rhs) {
-  iter = rhs;
+RowIterator<Type>::RowIterator(Type **Point_, unsigned int width_)
+    : Point(Point_), width(width_) {}
+
+template <class Type>
+typename RowIterator<Type>::reference RowIterator<Type>::operator*() const {
+  return *Point;
 }
 
 template <class Type>
-std::vector<Type> &matrix<Type>::RowIterator::operator*() const {
-  return *(iter);
+bool RowIterator<Type>::operator!=(RowIterator<Type> const &rhs) const {
+  return (Point != rhs.Point);
 }
 
 template <class Type>
-bool matrix<Type>::RowIterator::operator!=(
-    matrix::RowIterator const &rhs) const {
-  return (iter != rhs.iter);
+bool RowIterator<Type>::operator==(RowIterator<Type> const &rhs) const {
+  return (Point == rhs.Point);
 }
 
-template <class Type>
-bool matrix<Type>::RowIterator::operator==(
-    matrix::RowIterator const &rhs) const {
-  return (iter == rhs.iter);
-}
-
-template <class Type>
-typename matrix<Type>::RowIterator &matrix<Type>::RowIterator::operator++() {
-  ++iter;
+template <class Type> RowIterator<Type> &RowIterator<Type>::operator++() {
+  ++Point;
   return *this;
 }
 
 template <class Type>
-typename matrix<Type>::RowIterator::ColIterator
-matrix<Type>::RowIterator::begin() {
-  ColIterator Iterator(iter->begin());
-  return Iterator;
+typename RowIterator<Type>::Citerator RowIterator<Type>::begin() {
+  return Citerator(*Point);
 }
 
 template <class Type>
-typename matrix<Type>::RowIterator::ColIterator
-matrix<Type>::RowIterator::end() {
-  ColIterator Iterator(iter->end());
-  return Iterator;
+typename RowIterator<Type>::Citerator RowIterator<Type>::end() {
+  return Citerator(*Point + width);
 }
 
 template <class Type>
-matrix<Type>::RowIterator::ColIterator::ColIterator(
-    const matrix<Type>::RowIterator::ColIterator &rhs) {
-  iter = rhs.iter;
+typename RowIterator<Type>::const_Citerator RowIterator<Type>::begin() const {
+  return const_Citerator(*Point);
 }
 
 template <class Type>
-typename matrix<Type>::RowIterator::ColIterator &
-matrix<Type>::RowIterator::ColIterator::operator=(
-    const typename matrix<Type>::RowIterator::ColIterator &rhs) {
-  iter = rhs.iter;
+typename RowIterator<Type>::const_Citerator RowIterator<Type>::end() const {
+  return const_Citerator(*Point + width);
 }
 
 template <class Type>
-matrix<Type>::RowIterator::ColIterator::ColIterator(
-    const typename std::vector<Type>::iterator &rhs) {
-  iter = rhs;
+ColIterator<Type>::ColIterator(const ColIterator<Type> &rhs) {
+  Point = rhs.Point;
 }
 
 template <class Type>
-Type &matrix<Type>::RowIterator::ColIterator::operator*() const {
-  return *(iter);
+ColIterator<Type> &ColIterator<Type>::operator=(const ColIterator<Type> &rhs) {
+  Point = rhs.Point;
 }
 
 template <class Type>
-bool matrix<Type>::RowIterator::ColIterator::operator!=(
-    matrix::RowIterator::ColIterator const &rhs) const {
-  return (iter != rhs.iter);
+ColIterator<Type>::ColIterator(Type *Point_) : Point(Point_) {}
+
+template <class Type>
+typename ColIterator<Type>::reference &ColIterator<Type>::operator*() const {
+  return *Point;
 }
 
 template <class Type>
-bool matrix<Type>::RowIterator::ColIterator::operator==(
-    matrix::RowIterator::ColIterator const &rhs) const {
-  return (iter == rhs.iter);
+bool ColIterator<Type>::operator!=(ColIterator<Type> const &rhs) const {
+  return (Point != rhs.Point);
 }
 
 template <class Type>
-typename matrix<Type>::RowIterator::ColIterator &
-matrix<Type>::RowIterator::ColIterator::operator++() {
-  ++iter;
+bool ColIterator<Type>::operator==(ColIterator<Type> const &rhs) const {
+  return (Point == rhs.Point);
+}
+
+template <class Type> ColIterator<Type> &ColIterator<Type>::operator++() {
+  ++Point;
   return *this;
 }
 #endif // MATRIX_ITERATORS_H

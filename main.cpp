@@ -1,15 +1,16 @@
 #include "matrix.h"
 
+typedef matrix<double>::Riterator Row;
+typedef matrix<double>::Riterator::Citerator Col;
 int main(){
-    matrix_square<double> A(3, 3);
-    std::cin >> A;
-    matrix<double> C = A * 2;
-    matrix<double> B = A - C;
-    A += B;
-    B -= C;
-    double num = B[1][1];
-    std::cout << A << B << C;
-    std::cout << num;
+    matrix<double> A(10, 10);
+    matrix<double> B(A);
+    matrix_square<int> C(3, 3);
+    B.set((double)10);
+    A.set(3.0);
+    std::cout << A << B << A.rang()<< B.rang() << std::endl;
+    auto Pair =  A.find(8.0);
+    std::cout << A[0][0] << std::endl;
     return 0;
 }
 

@@ -4,9 +4,18 @@
 
 template <class Type>
 matrix<Type> &matrix<Type>::operator=(const matrix<Type> &rhs) {
+  assert((rhs.width != 0 || rhs.height != 0) &&
+         "A matrix of one element does not make sense");
   width = rhs.width;
   height = rhs.height;
-  data = rhs.data;
+
+  data = new Type *[height];
+  for (std::size_t i = 0; i != height; ++i)
+    data[i] = new Type[width];
+
+  for (std::size_t i = 0; i != height; ++i)
+    for (std::size_t j = 0; j != width; ++j)
+      data[i][j] = rhs.data[i][j];
 
   return *this;
 }
@@ -22,15 +31,15 @@ std::ostream &operator<<(std::ostream &os, matrix<Type> &A) {
 }
 
 template <class Type>
-const std::vector<Type> &matrix<Type>::operator[](const std::size_t num) const {
+const Type *matrix<Type>::operator[](const std::size_t num) const {
   return data[num];
 }
 
 template <class Type>
-matrix<Type> matrix<Type>::operator*(const Type val) const { // friend
+matrix<Type> matrix<Type>::operator*(const Type val) const {
   matrix C(*this);
-  for (Row itRow = C.begin(); itRow != C.end(); ++itRow)
-    for (Col itCol = itRow.begin(); itCol != itRow.end(); ++itCol)
+  for (auto itRow = C.begin(); itRow != C.end(); ++itRow)
+    for (auto itCol = itRow.begin(); itCol != itRow.end(); ++itCol)
       *itCol *= val;
   return C;
 }
@@ -106,6 +115,26 @@ bool matrix<Type>::operator==(const matrix<Type> &rhs) const {
 }
 
 template <class Type>
+matrix_square<Type> &matrix_square<Type>::operator=(const matrix_square<Type> &rhs) {
+  assert((rhs.size != 0) &&
+         "A matrix of one element does not make sense");
+  matrix_square<Type>::width = rhs.width;
+  matrix_square<Type>::height = rhs.height;
+  size = rhs.size;
+
+  matrix_square<Type>::data = new Type *[size];
+  for (std::size_t i = 0; i != size; ++i)
+    matrix_square<Type>::data[i] = new Type[size];
+
+  for (std::size_t i = 0; i != size; ++i)
+    for (std::size_t j = 0; j != size; ++j)
+      matrix_square<Type>::data[i][j] = rhs.data[i][j];
+
+  return *this;
+}
+
+
+template <class Type>
 matrix_square<Type> &
 matrix_square<Type>::operator*=(const matrix_square<Type> &rhs) {
   assert(size == rhs.size);
@@ -126,5 +155,4 @@ matrix_square<Type> operator*(const matrix_square<Type> &lhs,
   C *= rhs;
   return C;
 }
-
 #endif // MATRIX_OPERATORS_H
